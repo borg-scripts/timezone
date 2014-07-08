@@ -1,3 +1,5 @@
-Q.then install, 'tzdata'
-Q.then execute, "echo #{node.tz} | sudo tee /etc/timezone"
-Q.then execute, 'sudo dpkg-reconfigure -f noninteractive tzdata'
+module.exports = ->
+  @then @log, "Setting time zone"
+  @then @install, 'tzdata'
+  @then @execute, "echo #{@server.tz} | sudo tee /etc/timezone >/dev/null"
+  @then @execute, 'sudo dpkg-reconfigure -f noninteractive tzdata'
